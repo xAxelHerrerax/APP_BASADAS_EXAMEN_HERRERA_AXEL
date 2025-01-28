@@ -109,7 +109,7 @@ function predecir() {
         } else {
             respuesta = "Perro";
         }
-        document.getElementById("resultado").innerHTML = respuesta;
+        document.getElementById("resultado").innerHTML = respuesta; // Display the result
     }
 
     setTimeout(predecir, 150);
