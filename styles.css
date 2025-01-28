@@ -1,0 +1,51 @@
+body {
+    background-image: url('fondo.png');
+    background-size: cover;
+    background-position: center;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+.header {
+    background-color: cornflowerblue;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+}
+.container {
+    margin-top: 30px;
+    border-radius: 20px;
+    background-color: gray;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+}
+#resultado {
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-top: 20px;
+    transition: opacity 0.5s;
+}
+.footer {
+    background-color: #424242;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+.btn-custom {
+    background-color: #03dac5;
+    color: white;
+    transition: background-color 0.3s;
+}
+.btn-custom:hover {
+    background-color: #018786;
+}
+video {
+    border-radius: 10px;
+    border: 2px solid #6200ea;
+    display: block;
+    margin: 0 auto;
+}
