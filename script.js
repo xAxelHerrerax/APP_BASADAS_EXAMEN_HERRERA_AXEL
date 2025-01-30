@@ -100,7 +100,7 @@ function predecir() {
 
         arr = [arr];
 
-        var tensor = tf.tensor4d(arr, [1, 100, 100, 1]);
+        var tensor = tf.tensor4d(arr);
         var resultado = modelo.predict(tensor).dataSync();
 
         var respuesta;
@@ -109,7 +109,7 @@ function predecir() {
         } else {
             respuesta = "Perro";
         }
-        document.getElementById("resultado").innerHTML = respuesta; // Display the result
+        document.getElementById("resultado").innerHTML = respuesta; // Mostrar el resultado
     }
 
     setTimeout(predecir, 150);
