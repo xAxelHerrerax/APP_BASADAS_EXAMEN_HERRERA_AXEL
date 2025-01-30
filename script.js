@@ -8,17 +8,11 @@ var facingMode = "user";
 
 var modelo = null;
 
-async function loadModel() {
-  try {
+(async () => {
     console.log("Cargando modelo...");
-    const modelUrl = 'model.json';
-    this.modelo = await tf.loadLayersModel(modelUrl);
+    modelo = await tf.loadLayersModel("model.json");
     console.log("Modelo cargado");
-  } catch (error) {
-    console.error('Error cargando el modelo:', error);
-    throw error;
-  }
-}
+})();
 
 window.onload = function () {
     mostrarCamara();
@@ -106,7 +100,7 @@ function predecir() {
 
         arr = [arr];
 
-        var tensor = tf.tensor4d(arr);
+        var tensor = tf.tensor4d(arr, [1, 100, 100, 1]);
         var resultado = modelo.predict(tensor).dataSync();
 
         var respuesta;
@@ -115,7 +109,7 @@ function predecir() {
         } else {
             respuesta = "Perro";
         }
-        document.getElementById("resultado").innerHTML = respuesta; // Mostrar el resultado
+        document.getElementById("resultado").innerHTML = respuesta; // Display the result
     }
 
     setTimeout(predecir, 150);
