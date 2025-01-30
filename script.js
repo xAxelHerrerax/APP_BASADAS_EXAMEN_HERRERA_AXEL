@@ -1,51 +1,73 @@
-async function loadModel() {
-    try {
-      console.log("Cargando modelo...");
-      const modelData = await (await fetch('./model.json')).json();
-      this.model = await tf.loadLayersModel(tf.io.fromJSON(modelData));
-      console.log("Modelo cargado");
-    } catch (error) {
-      console.error('Error cargando el modelo:', error);
-      throw error;
-    }
-  }
-  
-  async function showCamera() {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
+var tamano = 400;
+var video = document.getElementById("video");
+var canvas = document.getElementById("canvas");
+var otrocanvas = document.getElementById("otrocanvas");
+var ctx = canvas.getContext("2d");
+var currentStream = null;
+var facingMode = "user";
+
+var modelo = null;
+
+fetch('./model.json')
+  .then(response => response.json())
+  .then(modelData => {
+    console.log("Cargando modelo...");
+    modelo = tf.model({
+      inputs: modelData.inputs,
+      outputs: modelData.outputs,
+      layers: modelData.modelTopology.layers
+    });
+    console.log("Modelo cargado");
+  })
+  .catch(error => {
+    console.error('Error cargando el modelo:', error);
+  });
+
+window.onload = function () {
+    mostrarCamara();
+}
+
+function mostrarCamara() {
+    var opciones = {
         audio: false,
-        video: { width: this.size, height: this.size },
-      });
-      this.currentStream = stream;
-      this.video.srcObject = stream;
-      this.processCameraFrame();
-      this.predict();
-    } catch (err) {
-      console.error('Error al acceder a la cámara:', err);
-      alert('No se pudo utilizar la cámara :(');
+        video: {
+            width: tamano, height: tamano
+        }
     }
-  }
-  
-  async function processCameraFrame() {
+
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia(opciones)
+            .then(function (stream) {
+                currentStream = stream;
+                video.srcObject = currentStream;
+                procesarCamara();
+                predecir();
+            })
+            .catch(function (err) {
+                alert("No se pudo utilizar la cámara :(");
+                console.log(err);
+            })
+    } else {
+        alert("No existe la función getUserMedia");
+    }
+}
+
+function cambiarCamara() {
     // El resto del código permanece igual
-  }
-  
-  async function predict() {
-    if (this.model) {
-      // El resto del código permanece igual
+}
+
+function procesarCamara() {
+    // El resto del código permanece igual
+}
+
+function predecir() {
+    if (modelo != null) {
+        // El resto del código permanece igual
     }
-    requestAnimationFrame(this.predict.bind(this));
-  }
-  
-  // Uso de las nuevas funciones
-  async function main() {
-    try {
-      await loadModel();
-      await showCamera();
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
-  
-  window.onload = main;
-  
+
+    setTimeout(predecir, 150);
+}
+
+function resample_single(canvas, width, height, resize_canvas) {
+    // El resto del código permanece igual
+}
