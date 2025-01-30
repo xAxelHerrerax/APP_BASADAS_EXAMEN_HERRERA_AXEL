@@ -100,7 +100,7 @@ function predecir() {
 
         arr = [arr];
 
-        var tensor = tf.tensor4d(arr);
+        var tensor = tf.tensor4d(arr, [1, 100, 100, 1]);
         var resultado = modelo.predict(tensor).dataSync();
 
         var respuesta;
